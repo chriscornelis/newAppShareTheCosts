@@ -7,7 +7,7 @@ class User
 	private $m_sEmail;
 	private $m_sPass;
 
-	public function __set($p_sProperty, $p_vValue)
+	public function _set($p_sProperty, $p_vValue)
 	{
 		switch($p_sProperty)
 		{
@@ -27,7 +27,7 @@ class User
 		}
 	}
 	
-	public function __get($p_sProperty)
+	public function _get($p_sProperty)
 	{
 		$vResult = null;
 		switch($p_sProperty)
@@ -61,11 +61,12 @@ class User
 				
 				if($link->query($sSql))
 				{
+					$id = $link->insert_id;
 					throw new Exception("Alright! Je hebt een account!");
 				}
 				else
 				{
-					echo $sSql;
+					//echo $sSql;
 					throw new Exception('whoops, probleem bij het opslaan');
 				}
 		}
@@ -88,7 +89,6 @@ class User
 		{
 			//gebruikersnaam bestaat al
 			return(false);
-			echo 'gebruiker bestaat al';
 		}
 		else
 		{
