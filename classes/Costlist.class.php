@@ -9,7 +9,7 @@ class Costlist
 	private $m_sCostKm;
 	private $m_sFuelConsump;
 	
-	public function __set($p_sProperty, $p_vValue)
+	public function _set($p_sProperty, $p_vValue)
 	{
 		switch($p_sProperty)
 		{
@@ -37,7 +37,7 @@ class Costlist
 
 		}
 	}
-	public function __get($p_sProperty)
+	public function _get($p_sProperty)
 	{
 		$lResult = null;
 		switch($p_sProperty)
