@@ -1,6 +1,6 @@
 <?php
 	include_once('classes/User.class.php');
-	//$feedback = "";
+	$feedback = " ";
 	if(isset($_POST['register']))
 	{
 		if(!empty($_POST['name_register']) && !empty($_POST['mail_register']) && !empty($_POST['password_register']))
@@ -12,18 +12,18 @@
 				$user->Name = $_POST['name_register'];
 				$user->Email = $_POST['mail_register'];
 				$user->Pass = $_POST['password_register'];
+				$user->Save();
 				
-				
-				
-				if($user->UsernameAvailable())
+				//$feedback = "Top, je hebt een account nu!";
+				/*if($user->UsernameAvailable())
 				{
-					$user->Save();
+					
 					$feedback = "Top, je hebt een account nu!";
 				}
 				else
 				{
 					$feedback = "Sorry, deze gebruikersnaam bestaat al";
-				}
+				}*/
 			}
 			catch(Exception $e)
 			{
@@ -59,7 +59,7 @@
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 <script type="text/javascript">
-$(document).ready(function(){
+/*$(document).ready(function(){
 	$("#name_register").keyup(function(){
 		var Name = $("#name_register").val();
 		//console.log(username);
@@ -82,8 +82,9 @@ $(document).ready(function(){
 				}
 			}
 		});
+		return(false);
 	});
-});
+});*/
 </script>
 	</head>
 
