@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+
 session_start();
 
 	include_once('classes/User.class.php');
@@ -7,29 +9,26 @@ session_start();
 	{
 		if(!empty($_POST['name_register']) && !empty($_POST['mail_register']) && !empty($_POST['password_register']))
 		{
-			
 			try
-			{
+			{	
 				$user = new User();
 				$user->Name = $_POST['name_register'];
 				$user->Email = $_POST['mail_register'];
 				$user->Pass = $_POST['password_register'];
-				
-				
 				//$feedback = "Top, je hebt een account nu!";
 				if($user->UsernameAvailable())
 				{
+					header('Location: http://localhost:8888/newAppShareTheCosts/lijstmaken.php');
 					$user->Save();
 					$_SESSION["UserID"] = $id;
 					$_SESSION["UserName"] = $_POST['name_register'];
-					$feedback = "Top, je hebt een account nu!";
-					header('Location: http://localhost:8888/newAppShareTheCosts/overzichtlijsten.php');
 					exit();
 				}
 				else
 				{
 					$feedback = "Sorry, deze gebruikersnaam bestaat al";
 				}
+				
 			}
 			catch(Exception $e)
 			{
