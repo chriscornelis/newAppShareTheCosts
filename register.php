@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 	include_once('classes/User.class.php');
 	$feedback = " ";
 	if(isset($_POST['register']))
@@ -18,7 +20,11 @@
 				if($user->UsernameAvailable())
 				{
 					$user->Save();
+					$_SESSION["UserID"] = $id;
+					$_SESSION["UserName"] = $_POST['name_register'];
 					$feedback = "Top, je hebt een account nu!";
+					header('Location: http://localhost:8888/newAppShareTheCosts/overzichtlijsten.php');
+					exit();
 				}
 				else
 				{

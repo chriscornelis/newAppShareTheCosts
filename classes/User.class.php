@@ -63,6 +63,7 @@ class User
 				{
 					$id = $link->insert_id;
 					throw new Exception("Alright! Je hebt een account!");
+					return $id;
 				}
 				else
 				{
