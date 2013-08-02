@@ -31,7 +31,7 @@
 
 			<div data-role="content">
 				<h2>Login</h2>
-				<form>
+				<form action="" method="post">
 					<input type="email" name="mail" id="mail_login" placeholder="e-mail" value="">
 					<input type="password" name="password" id="password_login" placeholder="paswoord" value="" autocomplete="off">
 					
