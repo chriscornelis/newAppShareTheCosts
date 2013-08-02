@@ -1,6 +1,5 @@
 <?php
 error_reporting(E_ALL);
-
 session_start();
 
 	include_once('classes/User.class.php');
@@ -18,10 +17,11 @@ session_start();
 				//$feedback = "Top, je hebt een account nu!";
 				if($user->UsernameAvailable())
 				{
-					header('Location: http://localhost:8888/newAppShareTheCosts/lijstmaken.php');
+					header('Location: http://localhost:8888/newAppShareTheCosts/overzichtlijsten.php');
 					$user->Save();
 					$_SESSION["UserID"] = $id;
 					$_SESSION["UserName"] = $_POST['name_register'];
+					echo $id;
 					exit();
 				}
 				else
