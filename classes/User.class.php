@@ -79,14 +79,32 @@ class User
 		return $rResult;
 		mysqli_close($link);
 	}
-	/*public function CheckUser()
+	public function CheckUser()
 	{
 		include("Connection.php");
 		if(!$link->connect_error)
 		{
-			$cSql = "SELECT "
+			$cSql = "SELECT * FROM Gebruiker WHERE Email = '".$this->Email."' AND Paswoord = '".$this->Pass."';";
+			$cResult = $link->query($cSql);							
+			$count = $cResult->num_rows;
+			if($count==1)
+			{
+				$userdata = mysqli_fetch_assoc($cResult);
+				$_SESSION["UserID"] = $userdata['GebruikerID'];
+				$_SESSION["UserName"] = $userdata['Naam'];
+				header('Location: http://localhost:8888/newAppShareTheCosts/overzichtlijsten.php');
+				exit();
+			}
+
+			else
+			{
+				throw new Exception("Sorry, we vonden geen account met deze gegevens, probeer opnieuw of maak een account aan");	
+			}
+		mysqli_close($link);
 		}
-	}*/
+		
+		
+	}
 	
 	public function UsernameAvailable()
 	{
