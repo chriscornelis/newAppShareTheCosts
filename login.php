@@ -31,11 +31,12 @@
 
 			<div data-role="content">
 				<h2>Login</h2>
-				
-				<input type="email" name="mail" id="mail_login" placeholder="e-mail" value="">
-				<input type="password" name="password" id="password_login" placeholder="paswoord" value="" autocomplete="off">
-				
-				<a href="#" data-role="button" id="login">Aanmelden</a>
+				<form>
+					<input type="email" name="mail" id="mail_login" placeholder="e-mail" value="">
+					<input type="password" name="password" id="password_login" placeholder="paswoord" value="" autocomplete="off">
+					
+					<input type="submit" name="login" id="login" value="Aanmelden" />
+				</form>
 				<p>Nog geen account? <a href="register.php">Registreer hier</a></p>
 			</div><!--content-->
 	
