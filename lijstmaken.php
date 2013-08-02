@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+session_start();
 include('classes/Costlist.class.php');
 	if(isset($_POST['make_list']))
 	{
@@ -10,11 +12,11 @@ include('classes/Costlist.class.php');
 			{
 				$list = new Costlist();
 				$list->ListName = $_POST['name_list'];
-				//$list->UserID = $_POST['']; ------- moet uit SESSION gehaald worden
+				$list->UserID = $_SESSION["UserID"];
 				$list->ListPass = $_POST['password_list'];
-				$list->Savelist();
+				$list->saveList();
 				//$feedback = 'tot hier';
-
+				
 			}
 			catch(Exception $e)
 			{

@@ -66,24 +66,26 @@ class Costlist
 		}
 		return $lResult;
 	}
-	public function Savelist()
+	public function saveList()
 	{
 		
 		include("Connection.php");
-		$sSql = "INSERT INTO Uitgavenlijst (LijstNaam, GebruikerID, Wachtwoord, AantalDeelnemers, KostKm, VerbruikAuto) 
+		$sSql = "INSERT INTO Uitgavenlijst (LijstNaam, GebruikerID, Wachtwoord) 
 		VALUES ('".$link->real_escape_string($this->ListName)."',
 		'".$link->real_escape_string($this->UserID)."',
-		'".$link->real_escape_string(md5($this->ListPass))."',
-		'".$link->real_escape_string($this->Members)."',
-		'".$link->real_escape_string($this->CostKm)."',
-		'".$link->real_escape_string($this->FuelConsump)."'
+		'".$link->real_escape_string(md5($this->ListPass))."'
 		);";
 		
 		
 		if($link->query($sSql))
 		{
-			//lijst opgeslagen, id van nieuwe lijst ophalen
-			$id = $link->insert_id;
+			//id van nieuwe lijst ophalen, lijst opgeslagen
+			$idList = $link->insert_id;
+			$fSql = "INSERT INTO Favoriet (GebruikerID, LijstID) VALUES('".$_SESSION['UserID']."','".$idList."');";
+			if(!$link->query($fSql))
+			{
+				throw new Exception("Lijst kan niet opgeslagen worden in jouw persoonlijke lijsten");
+			}
 			throw new Exception("Alright! Jouw nieuwe lijst is opgeslagen!");
 		}
 		else
@@ -93,6 +95,6 @@ class Costlist
 		}
 		mysqli_close($link);
 	}
-
+	public function 
 }
 ?>
