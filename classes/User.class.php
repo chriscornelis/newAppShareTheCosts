@@ -55,7 +55,7 @@ class User
 			
 				$sSql = "INSERT INTO Gebruiker (Naam, Paswoord, Email) 
 				VALUES ('".$link->real_escape_string($this->Name)."',
-				'".$link->real_escape_string($this->Pass)."',
+				'".$link->real_escape_string(md5($this->Pass))."',
 				'".$link->real_escape_string($this->Email)."'
 				);";
 				
@@ -79,6 +79,14 @@ class User
 		return $rResult;
 		mysqli_close($link);
 	}
+	/*public function CheckUser()
+	{
+		include("Connection.php");
+		if(!$link->connect_error)
+		{
+			$cSql = "SELECT "
+		}
+	}*/
 	
 	public function UsernameAvailable()
 	{

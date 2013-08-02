@@ -73,7 +73,7 @@ class Costlist
 		$sSql = "INSERT INTO Uitgavenlijst (LijstNaam, GebruikerID, Wachtwoord, AantalDeelnemers, KostKm, VerbruikAuto) 
 		VALUES ('".$link->real_escape_string($this->ListName)."',
 		'".$link->real_escape_string($this->UserID)."',
-		'".$link->real_escape_string($this->ListPass)."',
+		'".$link->real_escape_string(md5($this->ListPass))."',
 		'".$link->real_escape_string($this->Members)."',
 		'".$link->real_escape_string($this->CostKm)."',
 		'".$link->real_escape_string($this->FuelConsump)."'
