@@ -95,6 +95,18 @@ class Costlist
 		}
 		mysqli_close($link);
 	}
-	public function 
+	public function getPersonalLists()
+	{
+		include("Connection.php");
+		$pSql = "SELECT * FROM Favoriet WHERE GebruikerID = '".$link->real_escape_string($this->UserID)."';";
+		if($result = $link->query($pSql))
+		{
+			return($result);
+		}
+		else
+		{
+			throw new Exception('Whoops, jouw uitgavenlijsten konden niet opgehaald worden');
+		}
+	}
 }
 ?>
