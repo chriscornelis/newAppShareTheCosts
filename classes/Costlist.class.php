@@ -98,7 +98,11 @@ class Costlist
 	public function getPersonalLists()
 	{
 		include("Connection.php");
-		$pSql = "SELECT * FROM Favoriet WHERE GebruikerID = '".$link->real_escape_string($this->UserID)."';";
+		$pSql = "SELECT LijstNaam, Favoriet.LijstID, Favoriet.GebruikerID, Gebruiker.Naam, FavorietID
+				FROM Uitgavenlijst, Favoriet, Gebruiker
+				WHERE Uitgavenlijst.LijstID = Favoriet.LijstID
+				AND Favoriet.GebruikerID = Gebruiker.GebruikerID
+				AND Favoriet.GebruikerID = '".$link->real_escape_string($this->UserID)."';";
 		if($result = $link->query($pSql))
 		{
 			return($result);

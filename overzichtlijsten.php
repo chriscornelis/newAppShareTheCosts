@@ -11,16 +11,18 @@ error_reporting(E_ALL);
 	<div data-role="content">
 		<h2>Mijn uitgavenlijsten</h2>
 		
-		<ul data-role="listview" data-split-icon="delete" data-split-theme="d">
+		<ul data-role="listview" data-split-icon="delete" data-split-theme="d"> 
 		    <?php
 		    	if(mysqli_num_rows($personalLists)>0)
 		    	{
-			    	while($singleList = mysqli_fetch_assoc($personalLists))
-			    	echo "<li><a href='lijstdetail.php'>";
-					echo "<h3>".$singleList['LijstNaam']."</h3>";
-					echo "<p>Chris Cornelis</p></a>";
-					echo "<a href='#delete_list' data-rel='popup' data-position-to='window' data-transition='pop' class=".$singleList['GebruikerID']." id=".$singleList['LijstID'].">Verwijder uitgavelijst</a>";
-					echo "</li>";
+			    	while($singleList = $personalLists->fetch_assoc())
+			    	{
+				    	echo "<li><a href='lijstdetail.php'>";
+						echo "<h3>".$singleList['LijstNaam']."</h3>";
+						echo "<p>".$singleList['Naam']."</p></a>";
+						echo "<a href='#delete_list' data-rel='popup' data-position-to='window' data-transition='pop' class=".$singleList['LijstID']." id=".$singleList['FavorietID'].">Verwijder uitgavelijst</a>";
+						echo "</li>";
+					}
 		    	}
 		    	else
 		    	{
@@ -29,7 +31,7 @@ error_reporting(E_ALL);
 		    ?>
 		    
 		    
-		   		</ul>
+		</ul>
 		<div data-role="popup" id="delete_list" data-theme="d" data-verlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 			<p>Deze lijst verwijderen uit jouw uitgavenlijsten?</p>
 			<a href="overzichtlijsten.php" data-role="button" data-rel="back" data-theme="b" data-inline="true" data-mini="true">Ja, verwijder</a>
