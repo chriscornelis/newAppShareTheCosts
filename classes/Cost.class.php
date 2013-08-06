@@ -74,7 +74,28 @@ class Cost
 	}
 	public function saveCost()
 	{
+		include("Connection.php");
+		$saveCostSql = "INSERT INTO Uitgave (LijstID, TypeID, Prijs, Datum, Toelichting, StartKm, EindKm) 
+		VALUES ('".$link->real_escape_string($this->ListID)."', 
+		'".$link->real_escape_string($this->TypeID)."',
+		".$link->real_escape_string($this->Price).", 
+		'".$link->real_escape_string($this->Date)."',
+		'".$link->real_escape_string($this->Info)."',
+		".$link->real_escape_string($this->StartKm).",
+		".$link->real_escape_string($this->EndKm).");";
 		
+		
+		if($link->query($saveCostSql))
+		{
+			//uitgave is opgeslagen
+			throw new Exception("Ok! Jouw nieuwe uitgave is opgeslagen!");
+		}
+		else
+		{
+			//uitgave kon niet opgeslagen worden
+			throw new Exception("Uitgave kon niet opgeslagen worden");
+		}
+		mysqli_close($link);
 	}
 	public function getAllCostOfList()
 	{
