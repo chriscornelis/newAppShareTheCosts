@@ -76,8 +76,8 @@ class Cost
 	{
 		include("Connection.php");
 		$saveCostSql = "INSERT INTO Uitgave (LijstID, TypeID, Prijs, Datum, Toelichting, StartKm, EindKm) 
-		VALUES ('".$link->real_escape_string($this->ListID)."', 
-		'".$link->real_escape_string($this->TypeID)."',
+		VALUES (".$link->real_escape_string($this->ListID).", 
+		".$link->real_escape_string($this->TypeID).",
 		".$link->real_escape_string($this->Price).", 
 		'".$link->real_escape_string($this->Date)."',
 		'".$link->real_escape_string($this->Info)."',
@@ -97,9 +97,19 @@ class Cost
 		}
 		mysqli_close($link);
 	}
-	public function getAllCostOfList()
+	public function getAllCostsOfList()
 	{
-	
+		include("Connection.php");
+		$allCostsSql = "SELECT * FROM Uitgave WHERE LijstID = ".$link->real_escape_string($this->ListID).";";
+		
+		if($result = $link->query($allCostsSql))
+		{
+			return($result);
+		}
+		else
+		{
+			throw new Exception('Whoops, de uitgaven van deze lijst konden niet opgehaald worden');
+		}
 	}
 }
 ?>
