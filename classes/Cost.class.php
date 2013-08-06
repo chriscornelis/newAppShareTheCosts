@@ -113,5 +113,18 @@ class Cost
 			throw new Exception('Whoops, de uitgaven van deze lijst konden niet opgehaald worden');
 		}
 	}
+	public function getAllCostTypes()
+	{
+		include("Connection.php");
+		$allTypesSql
+		if($result = $link->query($allTypesSql))
+		{
+			return($result);
+		}
+		else
+		{
+			throw new Exception('Whoops, de types van uitgaven kunnen niet getoond worden');
+		}
+	}
 }
 ?>
