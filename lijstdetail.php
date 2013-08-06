@@ -1,3 +1,16 @@
+<?php 
+	session_start(); 
+	error_reporting(E_ALL);
+	include_once('classes/Cost.class.php');
+	
+	if(isset($_GET['id'])){
+		$listID=$_GET['id'];
+	}
+	$costs = new Cost();
+	$costs->ListID = $listID;
+	$allCosts = $costs->getAllCostsOfList();
+	
+?>
 <?php include 'header.php'; ?>
 
 
@@ -9,15 +22,25 @@
 		<br />
 	
 		<ul data-role="listview">
-		    <li><a href="#">
-		        
-		        <h3>Restaurant</h3>
-		        <p class="cost_price"><span>€</span>60</p></a>
-		    </li>
-		    <li><a href="#">
-		       <h3>Bar</h3>
-		        <p class="cost_price"><span>€</span>20</p></a>
-		    </li>
+		    
+		    <?php 
+		    
+		    if(mysqli_num_rows($allCosts)>0)
+		    	{
+			    	while($singleCost = $allCosts->fetch_assoc())
+			    	{
+				    	echo "<li><a href='#'>";
+						echo "<h3>".$singleCost['TypeNaam']."</h3>";
+						echo "<p class='cost_price'><span>&euro;</span>".$singleCost['Prijs']."</p></a>";
+						echo "</li>";
+					}
+		    	}
+		    	else
+		    	{
+			    	echo "<p>Er zijn nog geen uitgaven voor deze lijst.</p>";
+		    	}
+		    ?>
+		    
 		    <li><a href="#">
 		       <h3>Totaal</h3>
 		        <p class="total_price"><span>€</span>80</p></a>
@@ -26,9 +49,15 @@
 		        <h3>Kost per persoon</h3>
 		        <p class="cost_per_person"><span>€</span>40</p></a>
 		    </li>
+		    
+		    
 		</ul>
-		
-		
+		<br />
+		<?php if(isset($feedback)):?>
+			<div class="feedback">
+				<?php echo $feedback; ?>
+			</div>
+		<?php endif; ?>
 	</div><!--content-->
 	
 	<?php include 'footer.php'; ?>
