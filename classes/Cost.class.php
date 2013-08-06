@@ -100,8 +100,10 @@ class Cost
 	public function getAllCostsOfList()
 	{
 		include("Connection.php");
-		$allCostsSql = "SELECT * FROM Uitgave WHERE LijstID = ".$link->real_escape_string($this->ListID).";";
-		
+		$allCostsSql = "SELECT UitgaveID, LijstID, Uitgave.TypeID, Prijs, Datum, Toelichting, StartKm, EindKm, TypeNaam
+						FROM Uitgave, UitgaveType
+						WHERE Uitgave.LijstID = ".$link->real_escape_string($this->ListID)."
+						AND Uitgave.TypeID = UitgaveType.TypeID;";
 		if($result = $link->query($allCostsSql))
 		{
 			return($result);
