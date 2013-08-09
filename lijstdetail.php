@@ -16,9 +16,11 @@
 
 	<div data-role="content">
 		<h2>Weekend aan zee</h2>
-		<a href="instellingen.php" data-role="button" data-icon="gear" data-iconpos="notext">Instellingen</a>
-		<a href="uitgavemaken.php" data-role="button" data-icon="plus" data-theme="b">Voeg uitgave toe</a>
-	
+		<?php
+		echo "<a href='instellingen.php?id=".$listID."' data-role='button' data-icon='gear' data-iconpos='notext'>Instellingen</a>";
+		echo "<a href='uitgavemaken.php?id=".$listID."' data-role='button' data-icon='plus' data-theme='b'>Voeg uitgave toe</a>";
+		?>
+		
 		<br />
 	
 		<ul data-role="listview">

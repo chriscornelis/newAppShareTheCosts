@@ -89,6 +89,8 @@ class Cost
 		{
 			//uitgave is opgeslagen
 			throw new Exception("Ok! Jouw nieuwe uitgave is opgeslagen!");
+			//header('Location: http://localhost:8888/newAppShareTheCosts/overzichtlijsten.php');
+			exit();
 		}
 		else
 		{
@@ -116,7 +118,7 @@ class Cost
 	public function getAllCostTypes()
 	{
 		include("Connection.php");
-		$allTypesSql
+		$allTypesSql = "SELECT * FROM UitgaveType;";
 		if($result = $link->query($allTypesSql))
 		{
 			return($result);
