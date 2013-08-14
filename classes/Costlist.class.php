@@ -126,5 +126,18 @@ class Costlist
 			throw new Exception('Whoops, jouw uitgavenlijsten konden niet opgehaald worden');
 		}
 	}
+	public function updateListSettings()
+	{
+		include("Connection.php");
+		$updateSetingsSql = "UPDATE Uitgavenlijst SET Wachtwoord='".$link->real_escape_string($this->ListPass)."', AantalDeelnemers=".$link->real_escape_string($this->Members).", KostKm=".$link->real_escape_string($this->CostKm).", VerbruikAuto=".$link->real_escape_string($this->FuelConsump)." WHERE LijstID = ".$link->real_escape_string($this->ListID).";"
+		if(!$link->query($updateSetingsSql))
+		{
+			throw new Exception("Sorry, de nieuwe instellingen kunnen niet opgeslagen worden");
+		}
+		else
+		{
+			throw new Exception("Alright! De nieuwe instellingen zijn opgeslagen!");
+		}
+	}
 }
 ?>
