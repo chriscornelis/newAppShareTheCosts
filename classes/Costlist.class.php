@@ -112,5 +112,19 @@ class Costlist
 			throw new Exception('Whoops, jouw uitgavenlijsten konden niet opgehaald worden');
 		}
 	}
+	public function getListSettings()
+	{
+		include("Connection.php");
+		$listDetailsSql = "SELECT LijstNaam, Wachtwoord, AantalDeelnemers, KostKm, VerbruikAuto
+				FROM Uitgavenlijst WHERE LijstID = '".$link->real_escape_string($this->ListID)."';";
+		if($result = $link->query($listDetailsSql))
+		{
+			return($result);
+		}
+		else
+		{
+			throw new Exception('Whoops, jouw uitgavenlijsten konden niet opgehaald worden');
+		}
+	}
 }
 ?>
