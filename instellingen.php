@@ -9,34 +9,53 @@ error_reporting(E_ALL);
 	$settingsList = new Costlist();
 	$settingsList->ListID = $listID;
 	$listSettings = $settingsList->getListSettings();
+	
+	if(isset($_POST['save_settings']))
+	{
+		try
+		{
+		$updateList = new Costlist();
+		$updateList->ListID = $listID;
+		$updateList->ListPass = $_POST['password'];
+		$updateList->Members = $_POST['spinnerMembers'];
+		$updateList->CostKm = $_POST['cost_km'];
+		$updateList->FuelConsump = $_POST['fuel_consumption'];
+		$updateList->updateListSettings();
+		}
+		catch(Exception $e)
+		{
+			$feedback = $e->getMessage();
+		}
+	}
 ?>
 <?php include 'header.php'; ?>
 
 
 	<div data-role="content">
 		<h2>Instellingen</h2>
-		
-		<label for="spinner">Aantal personen</label>
-		<?php 
-		if(isset($listSettings))
-		{
-			while($singleSetting = $listSettings->fetch_assoc())
+		<form action="" method="post">
+			<label for="spinner">Aantal personen</label>
+			<?php 
+			if(isset($listSettings))
 			{
-				echo "<input type='number' name='spinner' id='spinner' min='1' max='10' value='".$singleSetting['AantalDeelnemers']."'>";
-				echo "<h4>Vervoerskosten</h4>";
-				echo "<label for='cost_km'>Kost/km</label>";
-				echo "<input type='text' data-clear-btn='false' name='cost_km' id='cost_km' value='".$singleSetting['KostKm']."'>";
-				echo "<label for='fuel_consumption'>Verbruik auto</label>";
-				echo "<input type='text' data-clear-btn='false' name='fuel_consumption' id='fuel_consumption' value='".$singleSetting['VerbruikAuto']."'>";
-				echo "<label for='password'>Wachtwoord</label>";
-				echo "<input type='text' name='password' id='password_list' placeholder='' value='".$singleSetting['Wachtwoord']."' autocomplete='off'>";
-	
-			}
-		}
-		?>
+				while($singleSetting = $listSettings->fetch_assoc())
+				{
+					echo "<input type='number' name='spinnerMembers' id='spinnerMembers' min='1' max='10' value='".$singleSetting['AantalDeelnemers']."'>";
+					echo "<h4>Vervoerskosten</h4>";
+					echo "<label for='cost_km'>Kost/km</label>";
+					echo "<input type='text' data-clear-btn='false' name='cost_km' id='cost_km' value='".$singleSetting['KostKm']."'>";
+					echo "<label for='fuel_consumption'>Verbruik auto</label>";
+					echo "<input type='text' data-clear-btn='false' name='fuel_consumption' id='fuel_consumption' value='".$singleSetting['VerbruikAuto']."'>";
+					echo "<label for='password'>Wachtwoord</label>";
+					echo "<input type='text' name='password' id='password_list' placeholder='' value='".$singleSetting['Wachtwoord']."' autocomplete='off'>";
 		
-		<a href="#" data-role="button" id="save_settings">Opslaan</a>
-		<?php echo "<a href='lijstdetail.php?id=".$listID."' data-role='button' id='cancel_settings'>Annuleer</a>"; ?>
+				}
+			}
+			?>
+			<input type="submit" name="save_settings" id="save_settings" value="Opslaan" />
+			<?php echo "<a href='lijstdetail.php?id=".$listID."' data-role='button' id='cancel_settings'>Annuleer</a>"; ?>
+		</form>
+		
 		<?php if(isset($feedback)):?>
 			<div class="feedback">
 			

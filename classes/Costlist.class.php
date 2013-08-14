@@ -129,8 +129,13 @@ class Costlist
 	public function updateListSettings()
 	{
 		include("Connection.php");
-		$updateSetingsSql = "UPDATE Uitgavenlijst SET Wachtwoord='".$link->real_escape_string($this->ListPass)."', AantalDeelnemers=".$link->real_escape_string($this->Members).", KostKm=".$link->real_escape_string($this->CostKm).", VerbruikAuto=".$link->real_escape_string($this->FuelConsump)." WHERE LijstID = ".$link->real_escape_string($this->ListID).";"
-		if(!$link->query($updateSetingsSql))
+		$updateSettingsSql = "UPDATE Uitgavenlijst SET Wachtwoord='".$link->real_escape_string($this->ListPass)."', 
+							AantalDeelnemers=".$link->real_escape_string($this->Members).",
+							KostKm=".$link->real_escape_string($this->CostKm).",
+							VerbruikAuto=".$link->real_escape_string($this->FuelConsump)."
+							WHERE LijstID = ".$link->real_escape_string($this->ListID).";";
+		
+		if(!$link->query($updateSettingsSql))
 		{
 			throw new Exception("Sorry, de nieuwe instellingen kunnen niet opgeslagen worden");
 		}
