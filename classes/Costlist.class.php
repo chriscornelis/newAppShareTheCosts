@@ -144,5 +144,25 @@ class Costlist
 			throw new Exception("Alright! De nieuwe instellingen zijn opgeslagen!");
 		}
 	}
+	public function searchList($LijstNaam, $BeheerderNaam)
+	{
+		include("Connection.php");
+		$searchListSql = "SELECT Uitgavenlijst.LijstID, Uitgavenlijst.LijstNaam, Uitgavenlijst.BeheerderID, Gebruiker.Naam
+						FROM Uitgavenlijst, Gebruiker
+						WHERE Uitgavenlijst.BeheerderID = Gebruiker.GebruikerID
+						AND (Uitgavenlijst.LijstNaam LIKE '%".$LijstNaam."%' AND Gebruiker.Naam LIKE '%".$BeheerderNaam."%')
+						AND (Uitgavenlijst.LijstNaam LIKE '%".$LijstNaam."%' OR Gebruiker.Naam LIKE '%".$BeheerderNaam."%')
+						GROUP BY Uitgavenlijst.LijstID;";
+		
+		if($result = $link->query($searchListSql))
+		{
+			return($result);
+		}
+		else
+		{
+			throw new Exception('Whoops, er kon geen uitgavenlijst gevonden worden met deze zoektermen');
+		}
+
+	}
 }
 ?>
