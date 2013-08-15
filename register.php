@@ -106,6 +106,7 @@ $(document).ready(function(){
 			
 			<input type="submit" name="register" id="register" value="Registreren" />
 		</form>
+		<p>Heb je toch een account? Ga terug naar het <a href="index.php">inlogscherm</a></p>
 	<?php if(isset($feedback)):?>
 	<div class="feedback">
 	
