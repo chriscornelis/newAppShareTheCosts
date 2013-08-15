@@ -28,4 +28,5 @@
 		<div data-role="page">
 			<div data-role="header">
 				<h1>ShareTheCosts</h1>
+    			<a href="logout.php" name="logout" id="logout" class="ui-btn-right">Uitloggen</a>
 			</div><!--header-->
