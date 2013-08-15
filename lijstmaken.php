@@ -36,7 +36,7 @@ include('classes/Costlist.class.php');
 				<input type="text" name="name_list" id="name_list" placeholder="Naam lijst" value="">
 				<input type="password" name="password_list" id="password_list" placeholder="Kies een wachtwoord" value="" autocomplete="off">
 				
-				<input type="submit" name="make_list" id="make_list" value="Maak de lijst" />
+				<input type="submit" data-theme='b' name="make_list" id="make_list" value="Maak de lijst" />
 			</form>
 			
 			<?php if(isset($feedback)):?>
