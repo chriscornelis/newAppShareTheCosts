@@ -128,5 +128,34 @@ class Cost
 			throw new Exception('Whoops, de types van uitgaven kunnen niet getoond worden');
 		}
 	}
+	public function getTotalCost()
+	{
+		include("Connection.php");
+		$totalCostSql = "SELECT SUM(Prijs) AS Totaalprijs FROM Uitgave WHERE LijstID =".$link->real_escape_string($this->ListID).";";
+		if($result = $link->query($totalCostSql))
+		{
+			return($result);
+		}
+		else
+		{
+			throw new Exception('Whoops, het totaal van alle uitgaven kan niet getoond worden');
+		}
+	}
+	public function getCostPerMember()
+	{
+		include("Connection.php");
+		$memberCostSql = "SELECT (SUM(Uitgave.Prijs)/Uitgavenlijst.AantalDeelnemers) AS PrijsPerPersoon
+						FROM Uitgave, Uitgavenlijst
+						WHERE Uitgave.LijstID = ".$link->real_escape_string($this->ListID)."
+						AND Uitgave.LijstID = Uitgavenlijst.LijstID;";
+		if($result = $link->query($memberCostSql))
+		{
+			return($result);
+		}
+		else
+		{
+			throw new Exception('Whoops, de prijs per persoon kan niet getoond worden');
+		}
+	}
 }
 ?>

@@ -9,7 +9,8 @@
 	$costs = new Cost();
 	$costs->ListID = $listID;
 	$allCosts = $costs->getAllCostsOfList();
-	
+	$totalCost = $costs->getTotalCost();
+	$memberCost = $costs->getCostPerMember();
 ?>
 <?php include 'header.php'; ?>
 
@@ -43,16 +44,38 @@
 		    	}
 		    ?>
 		    
-		    <li><a href="#">
+		    <li>
 		       <h3>Totaal</h3>
-		        <p class="total_price"><span>€</span>80</p></a>
+		    <?php
+			    
+			    if(isset($totalCost))
+			    {
+			    	if(mysqli_num_rows($totalCost)>0)
+					{
+			    		while($total = $totalCost->fetch_assoc())
+						{
+							echo "<p class='total_price'><span>€</span>".$total['Totaalprijs']."</p>";
+						}
+					}
+			    }
+		    ?>
 		    </li>
-		    <li><a href="#">
+		    <li>
 		        <h3>Kost per persoon</h3>
-		        <p class="cost_per_person"><span>€</span>40</p></a>
+		     <?php
+			    
+			    if(isset($memberCost))
+			    {
+			    	if(mysqli_num_rows($memberCost)>0)
+					{
+			    		while($costPerMember = $memberCost->fetch_assoc())
+						{
+							echo "<p class='cost_per_person'><span>€</span>".$costPerMember['PrijsPerPersoon']."</p>";
+						}
+					}
+			    }
+		    ?>
 		    </li>
-		    
-		    
 		</ul>
 		<br />
 		<?php if(isset($feedback)):?>
