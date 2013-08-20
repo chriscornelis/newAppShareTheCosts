@@ -151,7 +151,6 @@ class Costlist
 						FROM Uitgavenlijst, Gebruiker
 						WHERE Uitgavenlijst.BeheerderID = Gebruiker.GebruikerID
 						AND (Uitgavenlijst.LijstNaam LIKE '%".$LijstNaam."%' AND Gebruiker.Naam LIKE '%".$BeheerderNaam."%')
-						AND (Uitgavenlijst.LijstNaam LIKE '%".$LijstNaam."%' OR Gebruiker.Naam LIKE '%".$BeheerderNaam."%')
 						GROUP BY Uitgavenlijst.LijstID;";
 		
 		if($result = $link->query($searchListSql))
@@ -180,5 +179,23 @@ class Costlist
 			throw new Exception("Whoops, het wachtwoord kon niet gecontroleerd worden");
 		}
 	}
+	public function addFavoritList($beheerderID)
+	{
+		include("Connection.php");
+		$addFavoritSql = "INSERT INTO Favoriet (GebruikerID, LijstID, BeheerderID) 
+						VALUES ('".$link->real_escape_string($this->UserID)."',
+						'".$link->real_escape_string($this->ListID)."',
+						'".$link->real_escape_string($beheerderID)."');";
+		
+		if(!$link->query($addFavoritSql))
+		{
+			throw new Exception("De lijst kan niet toegevoegd worden aan jouw persoonlijke lijsten");
+		}
+		else
+		{
+			throw new Exception("Yes, de lijst is toegevoegd aan jouw persoonlijke lijsten!");
+		}
+	}
+	
 }
 ?>
