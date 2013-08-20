@@ -164,5 +164,21 @@ class Costlist
 		}
 
 	}
+	public function checkListPass()
+	{
+		include("Connection.php");
+		$checkPassSql = "SELECT LijstID, Wachtwoord
+						FROM Uitgavenlijst 
+						WHERE LijstID ='".$link->real_escape_string($this->ListID)."' AND Wachtwoord='".$link->real_escape_string($this->ListPass)."';";
+
+		if($result = $link->query($checkPassSql))
+		{
+			return($result);
+		}
+		else
+		{
+			throw new Exception("Whoops, het wachtwoord kon niet gecontroleerd worden");
+		}
+	}
 }
 ?>
