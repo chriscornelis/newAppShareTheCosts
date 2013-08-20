@@ -12,8 +12,8 @@ $feedback='';
 			try
 			{	
 				$searchCost = new Costlist();
-				$LijstNaam = str_replace(" ", "_", $_POST['search_name_list']);
-				$BeheerderNaam = str_replace(" ", "_", $_POST['search_name_owner']);
+				$LijstNaam = str_replace(" ", "%", $_POST['search_name_list']);
+				$BeheerderNaam = str_replace(" ", "%", $_POST['search_name_owner']);
 				$searchResult = $searchCost->searchList($LijstNaam, $BeheerderNaam);
 				
 			}
@@ -48,15 +48,25 @@ $feedback='';
 			<?php endif; ?>
 			<br />
 			<ul data-role="listview">
-			    <li><a href="toeganglijst.php">
-			        
-			        <h3>Weekendje Ardennen</h3>
-			        <p>Lien De Rijcke</p></a>
-			    </li>
-			    <li><a href="#">
-			       <h3>Weekend aan zee</h3>
-			        <p>Chris Cornelis</p></a>
-			    </li>
+			    <?php
+			    if(isset($searchResult))
+			    {
+			    	if(mysqli_num_rows($searchResult)>0)
+			    	{
+				    	while($singleSearchItem = $searchResult->fetch_assoc())
+				    	{
+					    	echo "<li><a href='toeganglijst.php?id=".$singleSearchItem['LijstID']."&lijstnaam=".$singleSearchItem['LijstNaam']."&beheerder=".$singleSearchItem['BeheerderID']."'>";
+					    	echo "<h3>".$singleSearchItem['LijstNaam']."</h3>";
+					    	echo "<p>".$singleSearchItem['Naam']."</p></a>";
+					    	echo "</li>";
+				    	}
+			    	}
+			    	else
+			    	{
+				    	echo "<p>Sorry, er zijn geen lijsten gevonden op basis van deze zoektermen</p>";
+			    	}
+			    }
+				 ?>
 			</ul>
 		</div><!--content-->
 		
