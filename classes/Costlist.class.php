@@ -81,7 +81,7 @@ class Costlist
 		{
 			//id van nieuwe lijst ophalen, lijst opgeslagen
 			$idList = $link->insert_id;
-			$fSql = "INSERT INTO Favoriet (GebruikerID, LijstID) VALUES('".$_SESSION['UserID']."','".$idList."');";
+			$fSql = "INSERT INTO Favoriet (GebruikerID, LijstID, BeheerderID) VALUES('".$_SESSION['UserID']."','".$idList."','".$_SESSION['UserID']."');";
 			if(!$link->query($fSql))
 			{
 				throw new Exception("Lijst kan niet opgeslagen worden in jouw persoonlijke lijsten");
@@ -101,7 +101,7 @@ class Costlist
 		$pSql = "SELECT LijstNaam, Favoriet.LijstID, Favoriet.GebruikerID, Gebruiker.Naam, FavorietID
 				FROM Uitgavenlijst, Favoriet, Gebruiker
 				WHERE Uitgavenlijst.LijstID = Favoriet.LijstID
-				AND Favoriet.GebruikerID = Gebruiker.GebruikerID
+				AND Favoriet.BeheerderID = Gebruiker.GebruikerID
 				AND Favoriet.GebruikerID = '".$link->real_escape_string($this->UserID)."';";
 		if($result = $link->query($pSql))
 		{

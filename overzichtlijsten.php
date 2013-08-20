@@ -19,7 +19,7 @@ error_reporting(E_ALL);
 			    	{
 				    	echo "<li><a href='lijstdetail.php?id=".$singleList['LijstID']."'>";
 						echo "<h3>".$singleList['LijstNaam']."</h3>";
-						echo "<p>".$singleList['Naam']."</p></a>";
+						echo "<p>Beheerder: ".$singleList['Naam']."</p></a>";
 						echo "<a href='#delete_list' data-rel='popup' data-position-to='window' data-transition='pop' class=".$singleList['LijstID']." id=".$singleList['FavorietID'].">Verwijder uitgavelijst</a>";
 						echo "</li>";
 					}
