@@ -18,7 +18,7 @@ error_reporting(E_ALL);
 		$updateList->ListID = $listID;
 		$updateList->ListPass = $_POST['password'];
 		$updateList->Members = $_POST['spinnerMembers'];
-		$updateList->CostKm = $_POST['cost_km'];
+		$updateList->CostFuel = $_POST['cost_brandstof'];
 		$updateList->FuelConsump = $_POST['fuel_consumption'];
 		$updateList->updateListSettings();
 		}
@@ -42,8 +42,8 @@ error_reporting(E_ALL);
 				{
 					echo "<input type='number' name='spinnerMembers' id='spinnerMembers' min='1' max='10' value='".$singleSetting['AantalDeelnemers']."'>";
 					echo "<h4>Vervoerskosten</h4>";
-					echo "<label for='cost_km'>Kost/km</label>";
-					echo "<input type='text' data-clear-btn='false' name='cost_km' id='cost_km' value='".$singleSetting['KostKm']."'>";
+					echo "<label for='cost_brandstof'>Brandstofprijs/L</label>";
+					echo "<input type='text' data-clear-btn='false' name='cost_km' id='cost_km' value='".$singleSetting['KostBrandstof']."'>";
 					echo "<label for='fuel_consumption'>Verbruik auto</label>";
 					echo "<input type='text' data-clear-btn='false' name='fuel_consumption' id='fuel_consumption' value='".$singleSetting['VerbruikAuto']."'>";
 					echo "<label for='password'>Wachtwoord</label>";

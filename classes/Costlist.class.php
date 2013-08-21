@@ -6,7 +6,7 @@ class Costlist
 	private $m_sUserID;
 	private $m_sListPass;
 	private $m_sMembers;
-	private $m_sCostKm;
+	private $m_sCostFuel;
 	private $m_sFuelConsump;
 	
 	public function _set($p_sProperty, $p_vValue)
@@ -28,8 +28,8 @@ class Costlist
 			case "Members":
 				$this->m_sMembers = $p_vValue;
 				break;
-			case "CostKm":
-				$this->m_sCostKm = $p_vValue;
+			case "CostFuel":
+				$this->m_sCostFuel = $p_vValue;
 				break;
 			case "FuelConsump":
 				$this->m_sFuelConsump = $p_vValue;
@@ -57,8 +57,8 @@ class Costlist
 			case "Members":
 				$lResult = $this->m_sMembers;
 				break;
-			case "CostKm":
-				$lResult = $this->m_sCostKm;
+			case "CostFuel":
+				$lResult = $this->m_sCostFuel;
 				break;
 			case "FuelConsump":
 				$lResult = $this->m_sFuelConsump;
@@ -115,7 +115,7 @@ class Costlist
 	public function getListSettings()
 	{
 		include("Connection.php");
-		$listDetailsSql = "SELECT LijstNaam, Wachtwoord, AantalDeelnemers, KostKm, VerbruikAuto
+		$listDetailsSql = "SELECT LijstNaam, Wachtwoord, AantalDeelnemers, KostBrandstof, VerbruikAuto
 				FROM Uitgavenlijst WHERE LijstID = '".$link->real_escape_string($this->ListID)."';";
 		if($result = $link->query($listDetailsSql))
 		{
@@ -131,7 +131,7 @@ class Costlist
 		include("Connection.php");
 		$updateSettingsSql = "UPDATE Uitgavenlijst SET Wachtwoord='".$link->real_escape_string($this->ListPass)."', 
 							AantalDeelnemers=".$link->real_escape_string($this->Members).",
-							KostKm=".$link->real_escape_string($this->CostKm).",
+							KostBrandstof=".$link->real_escape_string($this->CostFuel).",
 							VerbruikAuto=".$link->real_escape_string($this->FuelConsump)."
 							WHERE LijstID = ".$link->real_escape_string($this->ListID).";";
 		
