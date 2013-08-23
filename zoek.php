@@ -4,11 +4,12 @@ session_start();
 include('classes/Costlist.class.php');
 
 $feedback='';
-
+	//if the search button is clicked and one of the search fields is filled in
 	if(isset($_POST['search_list']))
 	{
 		if(!empty($_POST['search_name_owner']) || !empty($_POST['search_name_list']))
 		{
+			//search lists that contain the given list name or the name of an owner
 			try
 			{	
 				$searchCost = new Costlist();
@@ -39,16 +40,13 @@ $feedback='';
 				<input type="submit" data-theme='b' name="search_list" id="search_list" value="ZOEK" />
 			</form>
 			<br />
-			
-			<?php if(isset($feedback)):?>
-				<div class="feedback">
-			
-			<?php echo $feedback; ?>
-				</div>
-			<?php endif; ?>
+		
+		<?php include 'feedback.php'; ?>
+		
 			<br />
 			<ul data-role="listview">
 			    <?php
+			    //show the search results
 			    if(isset($searchResult))
 			    {
 			    	if(mysqli_num_rows($searchResult)>0)
@@ -69,6 +67,5 @@ $feedback='';
 				 ?>
 			</ul>
 		</div><!--content-->
-		
-	
+
 	<?php include 'footer.php'; ?>

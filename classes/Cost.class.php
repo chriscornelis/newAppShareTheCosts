@@ -72,6 +72,8 @@ class Cost
 		}
 		return $lResult;
 	}
+	
+	//function to save a new cost of a list
 	public function saveCost()
 	{
 		include("Connection.php");
@@ -85,18 +87,20 @@ class Cost
 		
 		if($link->query($saveCostSql))
 		{
-			//uitgave is opgeslagen
+			//cost saved
 			throw new Exception("Ok! Jouw nieuwe uitgave is opgeslagen!");
 			//header('Location: http://localhost:8888/newAppShareTheCosts/overzichtlijsten.php');
 			//exit();
 		}
 		else
 		{
-			//uitgave kon niet opgeslagen worden
+			//cost can't be saved
 			throw new Exception("Uitgave kon niet opgeslagen worden");
 		}
 		mysqli_close($link);
-	}	
+	}
+		
+	//function to save a cost for transportation based on the given kilometers at the start and the end of the trip
 	public function saveKmCost($totalKm)
 	{
 		include("Connection.php");
@@ -119,14 +123,14 @@ class Cost
 	
 				if($link->query($saveKmCostSql))
 				{
-					//uitgave is opgeslagen
+					//cost saved
 					throw new Exception("Ok! Jouw nieuwe uitgave is opgeslagen!");
 					//header('Location: http://localhost:8888/newAppShareTheCosts/overzichtlijsten.php');
 					//exit();
 				}
 				else
 				{
-					//uitgave kon niet opgeslagen worden
+					//cost can't be saved
 					throw new Exception("Uitgave kon niet opgeslagen worden");
 				}
 			}
@@ -139,7 +143,7 @@ class Cost
 		mysqli_close($link);
 	}
 
-		
+	//function to get all the costs of a certain list based on the list ID
 	public function getAllCostsOfList()
 	{
 		include("Connection.php");
@@ -157,6 +161,8 @@ class Cost
 		}
 		mysqli_close($link);
 	}
+	
+	//function to get all the cost types, to fill up the dropdown
 	public function getAllCostTypes()
 	{
 		include("Connection.php");
@@ -171,6 +177,8 @@ class Cost
 		}
 		mysqli_close($link);
 	}
+	
+	//function to calculate the total cost of a certain list, based on the list ID
 	public function getTotalCost()
 	{
 		include("Connection.php");
@@ -185,6 +193,8 @@ class Cost
 		}
 		mysqli_close($link);
 	}
+	
+	//function to calculate the equal cost for each member of the list
 	public function getCostPerMember()
 	{
 		include("Connection.php");

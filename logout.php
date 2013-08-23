@@ -3,7 +3,8 @@
     $_SESSION = array();
     unset($_SESSION);
     session_destroy();
-    header('Location: http://localhost:8888/newAppShareTheCosts/index.php');
+    //send the user back to the startpage with the login form
+    header('Location: http://localhost:8888/newAppShareTheCosts/');
 ?>
 <?php include 'header.php'; ?>
 	<div data-role="content">

@@ -4,10 +4,13 @@ session_start();
 
 	include_once('classes/User.class.php');
 	$feedback = " ";
+	//when the register button is clicked ...
 	if(isset($_POST['register']))
 	{
+		//... check if all the input fields are filled in
 		if(!empty($_POST['name_register']) && !empty($_POST['mail_register']) && !empty($_POST['password_register']))
 		{
+			//check if the username is available, if so, save the new user
 			try
 			{	
 				$user = new User();
@@ -40,29 +43,22 @@ session_start();
 			$feedback = "Vergeet niet alle velden in te vullen";
 		}
 	}
-?><!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-
-		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
-		Remove this if you use the .htaccess -->
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-
-		<title>ShareTheCosts</title>
-		<meta name="description" content="" />
-		<meta name="author" content="Chris Cornelis" />
-
-		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
-
-		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
-		<link rel="shortcut icon" href="/favicon.ico" />
-		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+?>
+<?php include 'header_no_title.php'; ?>
+		<h2>Registreer</h2>
+		<form action="" method="post">
+			<input type="text" name="name_register" id="name_register" placeholder="gebruikersnaam" />
+			<input type="email" name="mail_register" id="mail_register" placeholder="e-mail" />
+			<input type="password" name="password_register" id="password_register" placeholder="paswoord" autocomplete="off" />
+			
+			<input type="submit" name="register" id="register" value="Registreren" />
+		</form>
+		<p>Heb je toch een account? Ga terug naar het <a href="index.php">inlogscherm</a></p>
 		
-		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+		<?php include 'feedback.php'; ?>
 		
-		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+		<div class="username_feedback"><span></span></div>
+
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#name_register").keyup(function(){
@@ -90,35 +86,5 @@ $(document).ready(function(){
 		return(false);
 	});
 });
-</script>
-	</head>
-
-	<body>
-		<div data-role="page">
-
-
-	<div data-role="content">
-		<h2>Registreer</h2>
-		<form action="" method="post">
-			<input type="text" name="name_register" id="name_register" placeholder="gebruikersnaam" />
-			<input type="email" name="mail_register" id="mail_register" placeholder="e-mail" />
-			<input type="password" name="password_register" id="password_register" placeholder="paswoord" autocomplete="off" />
-			
-			<input type="submit" name="register" id="register" value="Registreren" />
-		</form>
-		<p>Heb je toch een account? Ga terug naar het <a href="index.php">inlogscherm</a></p>
-	<?php if(isset($feedback)):?>
-	<div class="feedback">
-	
-	<?php echo $feedback; ?>
-	</div>
-	<?php endif; ?>
-	
-<div class="username_feedback"><span></span></div>
-
-
-	</div><!--content-->
-	
-		</div>
-	</body>
-</html>
+</script>	
+<?php include 'footer_no_buttons.php'; ?>

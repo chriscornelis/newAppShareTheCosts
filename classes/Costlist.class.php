@@ -66,23 +66,23 @@ class Costlist
 		}
 		return $lResult;
 	}
+	
+	//function to save a new list
 	public function saveList()
 	{
-		
 		include("Connection.php");
-		$sSql = "INSERT INTO Uitgavenlijst (LijstNaam, GebruikerID, Wachtwoord) 
+		$saveListSql = "INSERT INTO Uitgavenlijst (LijstNaam, GebruikerID, Wachtwoord) 
 		VALUES ('".$link->real_escape_string($this->ListName)."',
 		'".$link->real_escape_string($this->UserID)."',
 		'".$link->real_escape_string(md5($this->ListPass))."'
 		);";
 		
-		
-		if($link->query($sSql))
+		if($link->query($saveListSql))
 		{
-			//id van nieuwe lijst ophalen, lijst opgeslagen
+			//get id of newly saved list and save in table Favoriet to show the list in 'Mijn uitgavenlijsten'
 			$idList = $link->insert_id;
-			$fSql = "INSERT INTO Favoriet (GebruikerID, LijstID, BeheerderID) VALUES('".$_SESSION['UserID']."','".$idList."','".$_SESSION['UserID']."');";
-			if(!$link->query($fSql))
+			$favoritSql = "INSERT INTO Favoriet (GebruikerID, LijstID, BeheerderID) VALUES('".$_SESSION['UserID']."','".$idList."','".$_SESSION['UserID']."');";
+			if(!$link->query($favoritSql))
 			{
 				throw new Exception("Lijst kan niet opgeslagen worden in jouw persoonlijke lijsten");
 			}
@@ -90,20 +90,22 @@ class Costlist
 		}
 		else
 		{
-			//lijst kan niet opgeslagen worden
+			//list can't be saved
 			throw new Exception("Lijst kan niet opgeslagen worden");
 		}
 		mysqli_close($link);
 	}
+	
+	//function to get all the lists that where placed in table Favoriet, so they can be shown in 'Mijn uitgavenlijsten'
 	public function getPersonalLists()
 	{
 		include("Connection.php");
-		$pSql = "SELECT LijstNaam, Favoriet.LijstID, Favoriet.GebruikerID, Gebruiker.Naam, FavorietID
+		$personalListSql = "SELECT LijstNaam, Favoriet.LijstID, Favoriet.GebruikerID, Gebruiker.Naam, FavorietID
 				FROM Uitgavenlijst, Favoriet, Gebruiker
 				WHERE Uitgavenlijst.LijstID = Favoriet.LijstID
 				AND Favoriet.BeheerderID = Gebruiker.GebruikerID
 				AND Favoriet.GebruikerID = '".$link->real_escape_string($this->UserID)."';";
-		if($result = $link->query($pSql))
+		if($result = $link->query($personalListSql))
 		{
 			return($result);
 		}
@@ -113,6 +115,9 @@ class Costlist
 		}
 		mysqli_close($link);
 	}
+	
+	//function to show the settings of a list, like name, password, amount of members, fuel cost and the fuel consumption of a car
+	//in the DB there are already standard values for fuel cost and fuel consumption
 	public function getListSettings()
 	{
 		include("Connection.php");
@@ -128,6 +133,8 @@ class Costlist
 		}
 		mysqli_close($link);
 	}
+	
+	//function to change the settings of a list
 	public function updateListSettings()
 	{
 		include("Connection.php");
@@ -147,6 +154,8 @@ class Costlist
 		}
 		mysqli_close($link);
 	}
+	
+	//function to search a list based on a given name for the list and the owner
 	public function searchList($LijstNaam, $BeheerderNaam)
 	{
 		include("Connection.php");
@@ -166,6 +175,8 @@ class Costlist
 		}
 		mysqli_close($link);
 	}
+	
+	//function to check if a user gave the right password to acces a list
 	public function checkListPass()
 	{
 		include("Connection.php");
@@ -183,6 +194,8 @@ class Costlist
 		}
 		mysqli_close($link);
 	}
+	
+	//function to add a list to a user's favorite's, so he can see it in 'Mijn uitgavenlijsten'
 	public function addFavoritList($beheerderID)
 	{
 		include("Connection.php");

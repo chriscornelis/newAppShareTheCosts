@@ -4,10 +4,13 @@
 	
 	include_once('classes/Cost.class.php');
 	$listID;
+	
+	//get the ID of the list that was opened 
 	if(isset($_GET['id'])){
 		$listID=$_GET['id'];
 	}
 	$costTypes = new Cost();
+	//get all the types of costs
 	$allCostTypes = $costTypes->getAllCostTypes();
 	
 	if(isset($_POST['save_cost']))
@@ -33,6 +36,7 @@
 		}
 		else
 		{*/
+			//save a new cost
 			try
 			{	
 				$cost = new Cost();
@@ -60,6 +64,7 @@
 				<select name="cost_type" id="cost_type">
 					<option value="Type">Type</option>
 				    <?php
+				    //show all the cost types in a drop down
 				    if(isset($allCostTypes))
 				    {
 					    if(mysqli_num_rows($allCostTypes)>0)
@@ -74,7 +79,6 @@
 					    	echo "<option value='0'>Geen types gevonden</option>";
 				    	}
 				    }
-				    
 				    ?>
 				</select>
 				
@@ -101,14 +105,9 @@
 				<input type="submit" name="save_cost" id="save_cost" data-theme="b" value="OPSLAAN" />
 				<input type="submit" name="delete_cost" id="delete_cost" data-theme="b" value="VERWIJDER" />
 
-			</form>
-			<?php if(isset($feedback)):?>
-				<div class="feedback">
-				
-			<?php echo $feedback; ?>
-				</div>
-			<?php endif; ?>
-
+			</form> <!-- END form -->
+			
+			<?php include 'feedback.php'; ?>
 		</div><!--content-->
 <script>
 /*$("#km_input").hide();

@@ -2,21 +2,19 @@
 error_reporting(E_ALL);
 session_start();
 include('classes/Costlist.class.php');
+
+	//check if the values for the name and the password of a list are filled in, then make the new list
 	if(isset($_POST['make_list']))
 	{
-	
 		if(!empty($_POST['name_list']) && !empty($_POST['password_list']))
 		{
-			
 			try
 			{
 				$list = new Costlist();
 				$list->ListName = $_POST['name_list'];
 				$list->UserID = $_SESSION["UserID"];
 				$list->ListPass = $_POST['password_list'];
-				$list->saveList();
-				//$feedback = 'tot hier';
-				
+				$list->saveList();				
 			}
 			catch(Exception $e)
 			{
@@ -39,13 +37,6 @@ include('classes/Costlist.class.php');
 				<input type="submit" data-theme='b' name="make_list" id="make_list" value="Maak de lijst" />
 			</form>
 			
-			<?php if(isset($feedback)):?>
-			<div class="feedback">
-			
-			<?php echo $feedback; ?>
-			</div>
-			<?php endif; ?>
+			<?php include 'feedback.php'; ?>
 		</div><!--content-->
-		
-	
-	<?php include 'footer.php'; ?>
+<?php include 'footer.php'; ?>

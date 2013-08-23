@@ -3,13 +3,16 @@ error_reporting(E_ALL);
 	include_once('classes/Costlist.class.php');
 	$feedback = '';
 	$listID;
+	//get the id of the list that was clicked on, in the search results on 'zoek.php'
 	if(isset($_GET['id'])){
 		$listID=$_GET['id'];
 	}
+	//when the OK-button is clicked and the password field is filled in ...
 	if(isset($_POST['list_login']))
 	{
 		if(!empty($_POST['password_list']))
 		{
+			//... check if the password for the chosen list is correct, if so, give access to the user
 			try
 			{
 				$accessCostList = new Costlist();
@@ -18,10 +21,8 @@ error_reporting(E_ALL);
 				$accesList = $accessCostList->checkListPass();
 				
 				if(mysqli_num_rows($accesList)==1)
-				{
-					//redirect naar de lijst
-					
-					//lijst toevoegen aan favoriet
+				{	
+					//set list in table Favoriet if checkbox favorit_list is checked
 					if(isset($_POST['favorit_list']) && isset($_GET['beheerder']))
 					{
 						try
@@ -36,6 +37,8 @@ error_reporting(E_ALL);
 						{
 							$feedback = $e->getMessage();				
 						}	
+						//redirect user to the list he gave a password for
+						header('Location: http://localhost:8888/newAppShareTheCosts/lijstdetail.php?id='.$listID.'');
 					}
 				}
 				else
@@ -54,11 +57,8 @@ error_reporting(E_ALL);
 			$feedback = 'Oeps, vergeten om het wachtwoordveld in te vullen?';
 		}
 	}
-	
-	
 ?>
 <?php include 'header.php'; ?>
-
 
 	<div data-role="content">
 		<?php echo "<h2>".$_GET['lijstnaam']."</h2>"; ?>
@@ -69,14 +69,8 @@ error_reporting(E_ALL);
 			<label for="favorit_list">zet bij 'Mijn uitgavenlijsten'</label>
 			<input type="submit" data-theme='b' name="list_login" id="list_login" value="OK" />
 		</form>
-		
-		<?php if(isset($feedback)):?>
-				<div class="feedback">
-			
-		<?php echo $feedback; ?>
-				</div>
-		<?php endif; ?>
 
+		<?php include 'feedback.php'; ?>
 	</div><!--content-->
 	
 	<?php include 'footer.php'; ?>

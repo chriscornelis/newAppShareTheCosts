@@ -2,18 +2,20 @@
 	session_start(); 
 	error_reporting(E_ALL);
 	include_once('classes/Cost.class.php');
-	
+	//get the id of the list that was clicked on in 'overzichtlijsten.php'
 	if(isset($_GET['id'])){
 		$listID=$_GET['id'];
 	}
 	$costs = new Cost();
 	$costs->ListID = $listID;
+	//get the existing costs of the list
 	$allCosts = $costs->getAllCostsOfList();
+	//calculate the total cost
 	$totalCost = $costs->getTotalCost();
+	//calculate the equal cost for each member
 	$memberCost = $costs->getCostPerMember();
 ?>
 <?php include 'header.php'; ?>
-
 
 	<div data-role="content">
 		<h2>Weekend aan zee</h2>
@@ -24,10 +26,9 @@
 		
 		<br />
 	
-		<ul data-role="listview">
-		    
+		<ul data-role="listview">  
 		    <?php 
-		    
+		    //show all the costs of a list in a listview
 		    if(mysqli_num_rows($allCosts)>0)
 		    	{
 			    	while($singleCost = $allCosts->fetch_assoc())
@@ -43,11 +44,10 @@
 			    	echo "<p>Er zijn nog geen uitgaven voor deze lijst.</p>";
 		    	}
 		    ?>
-		    
 		    <li>
 		       <h3>Totaal</h3>
 		    <?php
-			    
+		    	//show the total cost
 			    if(isset($totalCost))
 			    {
 			    	if(mysqli_num_rows($totalCost)>0)
@@ -63,7 +63,7 @@
 		    <li>
 		        <h3>Kost per persoon</h3>
 		     <?php
-			    
+			    //show the cost per member
 			    if(isset($memberCost))
 			    {
 			    	if(mysqli_num_rows($memberCost)>0)
@@ -78,11 +78,7 @@
 		    </li>
 		</ul>
 		<br />
-		<?php if(isset($feedback)):?>
-			<div class="feedback">
-				<?php echo $feedback; ?>
-			</div>
-		<?php endif; ?>
+		<?php include 'feedback.php'; ?>
 	</div><!--content-->
 	
 	<?php include 'footer.php'; ?>

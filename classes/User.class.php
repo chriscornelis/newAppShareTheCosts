@@ -46,72 +46,71 @@ class User
 		}
 		return $vResult;
 	}
-	
+	// function to save a new user
 	public function Save()
 	{
 		include("Connection.php");
 		if(!$link->connect_error)
 		{
-			
-				$sSql = "INSERT INTO Gebruiker (Naam, Paswoord, Email) 
+				$saveUserSql = "INSERT INTO Gebruiker (Naam, Paswoord, Email) 
 				VALUES ('".$link->real_escape_string($this->Name)."',
 				'".$link->real_escape_string(md5($this->Pass))."',
 				'".$link->real_escape_string($this->Email)."'
 				);";
 				
-				if($link->query($sSql))
+				if($link->query($saveUserSql))
 				{
+					//get the user ID from the user that was just saved
 					$id = $link->insert_id;
 					throw new Exception("Alright! Je hebt een account!");
 					return $id;
 				}
 				else
 				{
-					//echo $sSql;
-					throw new Exception('whoops, probleem bij het opslaan');
+					throw new Exception('Whoops, probleem bij het opslaan');
 				}
 		}
 		else
 		{
-			//geen conn met db
-			throw new Exception('no connection with db');
+			//no connection with db
+			throw new Exception('Whoops, er is iets fout gelopen met de databank');
 		}
+		//return the user ID to use in a session
 		return $rResult;
 		mysqli_close($link);
 	}
+	
+	//function to check if the user exists, to allow him access
 	public function CheckUser()
 	{
 		include("Connection.php");
 		if(!$link->connect_error)
 		{
-			$cSql = "SELECT * FROM Gebruiker WHERE Email = '".$this->Email."' AND Paswoord = '".$this->Pass."';";
-			$cResult = $link->query($cSql);							
-			$count = $cResult->num_rows;
+			$checkUserSql = "SELECT * FROM Gebruiker WHERE Email = '".$this->Email."' AND Paswoord = '".$this->Pass."';";
+			$checkUserResult = $link->query($checkUserSql);							
+			$count = $checkUserResult->num_rows;
 			if($count==1)
 			{
-				$userdata = mysqli_fetch_assoc($cResult);
+				$userdata = mysqli_fetch_assoc($checkUserResult);
 				$_SESSION["UserID"] = $userdata['GebruikerID'];
 				$_SESSION["UserName"] = $userdata['Naam'];
 				header('Location: http://localhost:8888/newAppShareTheCosts/overzichtlijsten.php');
 				exit();
 			}
-
 			else
 			{
 				throw new Exception("Sorry, we vonden geen account met deze gegevens, probeer opnieuw of maak een account aan");	
 			}
 		mysqli_close($link);
 		}
-		
-		
 	}
 	
+	//function to check if a username already exists
 	public function UsernameAvailable()
 	{
 		include("Connection.php");
-		
-		$sSql = "SELECT Naam FROM Gebruiker WHERE Naam = '".$this->Name."'";
-		$v_Result = $link->query($sSql);
+		$usernameAvailSql = "SELECT Naam FROM Gebruiker WHERE Naam = '".$this->Name."'";
+		$v_Result = $link->query($usernameAvailSql);
 		if($v_Result->num_rows>0)
 		{
 			//gebruikersnaam bestaat al

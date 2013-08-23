@@ -2,14 +2,18 @@
 session_start(); 
 error_reporting(E_ALL);
 	include_once('classes/Costlist.class.php');
+	
+	//get the ID of the list that was clicked on in overzichtlijsten.php
 	if(isset($_GET['id'])){
 		$listID=$_GET['id'];
 	}
 	
+	//get all the list settings of the list that was opened
 	$settingsList = new Costlist();
 	$settingsList->ListID = $listID;
 	$listSettings = $settingsList->getListSettings();
 	
+	//save new settings of the list
 	if(isset($_POST['save_settings']))
 	{
 		try
@@ -29,7 +33,6 @@ error_reporting(E_ALL);
 	}
 ?>
 <?php include 'header.php'; ?>
-
 
 	<div data-role="content">
 		<h2>Instellingen</h2>
@@ -56,12 +59,7 @@ error_reporting(E_ALL);
 			<?php echo "<a href='lijstdetail.php?id=".$listID."' data-role='button' id='cancel_settings'>Annuleer</a>"; ?>
 		</form>
 		
-		<?php if(isset($feedback)):?>
-			<div class="feedback">
-			
-		<?php echo $feedback; ?>
-			</div>
-		<?php endif; ?>
+<?php include 'feedback.php'; ?>
 
 	</div><!--content-->
 <?php include 'footer.php'; ?>
