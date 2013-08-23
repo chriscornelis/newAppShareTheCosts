@@ -3,6 +3,7 @@
 	error_reporting(E_ALL);
 	
 	include_once('classes/Cost.class.php');
+	$listID;
 	if(isset($_GET['id'])){
 		$listID=$_GET['id'];
 	}
@@ -11,6 +12,27 @@
 	
 	if(isset($_POST['save_cost']))
 	{
+		/*if($_POST['cost_type']==20)
+		{
+			try
+			{	
+				$kmcost = new Cost();
+				$kmcost->ListID = $listID;
+				$kmcost->TypeID = $_POST['cost_type'];
+				$kmcost->Date = $_POST['date'];
+				$kmcost->Info = $_POST['info'];
+				$kmcost->StartKm = $_POST['start_km'];
+				$kmcost->EndKm = $_POST['end_km'];
+				$totalKm = $_POST['end_km'] - $_POST['start_km'];
+				$kmcost->saveKmCost($totalKm);
+			}
+			catch(Exception $e)
+			{
+				$feedback = $e->getMessage();
+			}
+		}
+		else
+		{*/
 			try
 			{	
 				$cost = new Cost();
@@ -27,10 +49,8 @@
 			{
 				$feedback = $e->getMessage();
 			}
+		//}
 	}
-
-				
-
 ?>
 <?php include 'header.php'; ?>
 
@@ -59,9 +79,6 @@
 				</select>
 				
 				<div id="km_input">
-					<label>Prijs/km</label>
-					<p><span>&euro;</span>1,45</p>
-					
 					<label for="start_km">Start km</label>
 					<input type="number" name="start_km" id="start_km" value="0">
 								
@@ -70,9 +87,10 @@
 					<input type="number" name="end_km" id="end_km" value="0">
 				</div>
 				
-				<label for="price">Prijs</label> <span>&euro;</span>
-				<input type="number" name="price" id="price" value="">
-				
+				<div id="prijs_input">
+					<label for="price">Prijs</label> <span>&euro;</span>
+					<input type="number" name="price" id="price" value="0.00">
+				</div>
 				<label for="date">Datum</label>
 				<input type="date" name="date" id="date" value="">
 				
@@ -93,15 +111,20 @@
 
 		</div><!--content-->
 <script>
-$("#km_input").hide();
+/*$("#km_input").hide();
+$("#prijs_input").show();
+
 $("#cost_type").change(function(){
 	if($("#cost_type").val()=='20')
 	{
 		$("#km_input").show();
-	}else
+		$("#prijs_input").hide();
+	}
+	else
 	{
 		$("#km_input").hide();
+		$("#prijs_input").show();
 	}
-});
+});*/
 </script>		
 	<?php include 'footer.php'; ?>

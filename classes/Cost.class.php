@@ -75,14 +75,12 @@ class Cost
 	public function saveCost()
 	{
 		include("Connection.php");
-		$saveCostSql = "INSERT INTO Uitgave (LijstID, TypeID, Prijs, Datum, Toelichting, StartKm, EindKm) 
+		$saveCostSql = "INSERT INTO Uitgave (LijstID, TypeID, Prijs, Datum, Toelichting) 
 		VALUES (".$link->real_escape_string($this->ListID).", 
 		".$link->real_escape_string($this->TypeID).",
 		".$link->real_escape_string($this->Price).", 
 		'".$link->real_escape_string($this->Date)."',
-		'".$link->real_escape_string($this->Info)."',
-		".$link->real_escape_string($this->StartKm).",
-		".$link->real_escape_string($this->EndKm).");";
+		'".$link->real_escape_string($this->Info)."';";
 		
 		
 		if($link->query($saveCostSql))
@@ -90,7 +88,7 @@ class Cost
 			//uitgave is opgeslagen
 			throw new Exception("Ok! Jouw nieuwe uitgave is opgeslagen!");
 			//header('Location: http://localhost:8888/newAppShareTheCosts/overzichtlijsten.php');
-			exit();
+			//exit();
 		}
 		else
 		{
@@ -98,7 +96,50 @@ class Cost
 			throw new Exception("Uitgave kon niet opgeslagen worden");
 		}
 		mysqli_close($link);
+	}	
+	public function saveKmCost($totalKm)
+	{
+		include("Connection.php");
+		$priceCostSql = "SELECT (".$totalKm." * (VerbruikAuto / 100)) * KostBrandstof AS Prijs
+						FROM Uitgavenlijst
+						WHERE LijstID = ".$link->real_escape_string($this->ListID).";";
+		
+		if($price = $link->query($priceCostSql))
+		{
+			while($priceKm = $price->fetch_assoc())
+			{
+				$saveKmCostSql = "INSERT INTO Uitgave (LijstID, TypeID, Prijs, Datum, Toelichting, StartKm, EindKm) 
+				VALUES (".$link->real_escape_string($this->ListID).", 
+				".$link->real_escape_string($this->TypeID).",
+				".$priceKm['Prijs'].",
+				'".$link->real_escape_string($this->Date)."',
+				'".$link->real_escape_string($this->Info)."',		
+				".$link->real_escape_string($this->StartKm).",
+				".$link->real_escape_string($this->EndKm).");";
+	
+				if($link->query($saveKmCostSql))
+				{
+					//uitgave is opgeslagen
+					throw new Exception("Ok! Jouw nieuwe uitgave is opgeslagen!");
+					//header('Location: http://localhost:8888/newAppShareTheCosts/overzichtlijsten.php');
+					//exit();
+				}
+				else
+				{
+					//uitgave kon niet opgeslagen worden
+					throw new Exception("Uitgave kon niet opgeslagen worden");
+				}
+			}
+
+					}
+		else
+		{
+			throw new Exception('Whoops, de prijs kon niet berekend worden');
+		}
+		mysqli_close($link);
 	}
+
+		
 	public function getAllCostsOfList()
 	{
 		include("Connection.php");
@@ -114,6 +155,7 @@ class Cost
 		{
 			throw new Exception('Whoops, de uitgaven van deze lijst konden niet opgehaald worden');
 		}
+		mysqli_close($link);
 	}
 	public function getAllCostTypes()
 	{
@@ -127,6 +169,7 @@ class Cost
 		{
 			throw new Exception('Whoops, de types van uitgaven kunnen niet getoond worden');
 		}
+		mysqli_close($link);
 	}
 	public function getTotalCost()
 	{
@@ -140,6 +183,7 @@ class Cost
 		{
 			throw new Exception('Whoops, het totaal van alle uitgaven kan niet getoond worden');
 		}
+		mysqli_close($link);
 	}
 	public function getCostPerMember()
 	{
@@ -156,6 +200,7 @@ class Cost
 		{
 			throw new Exception('Whoops, de prijs per persoon kan niet getoond worden');
 		}
+		mysqli_close($link);
 	}
 }
 ?>
