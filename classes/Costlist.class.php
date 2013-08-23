@@ -111,6 +111,7 @@ class Costlist
 		{
 			throw new Exception('Whoops, jouw uitgavenlijsten konden niet opgehaald worden');
 		}
+		mysqli_close($link);
 	}
 	public function getListSettings()
 	{
@@ -125,6 +126,7 @@ class Costlist
 		{
 			throw new Exception('Whoops, jouw uitgavenlijsten konden niet opgehaald worden');
 		}
+		mysqli_close($link);
 	}
 	public function updateListSettings()
 	{
@@ -143,6 +145,7 @@ class Costlist
 		{
 			throw new Exception("Alright! De nieuwe instellingen zijn opgeslagen!");
 		}
+		mysqli_close($link);
 	}
 	public function searchList($LijstNaam, $BeheerderNaam)
 	{
@@ -161,7 +164,7 @@ class Costlist
 		{
 			throw new Exception('Whoops, er kon geen uitgavenlijst gevonden worden met deze zoektermen');
 		}
-
+		mysqli_close($link);
 	}
 	public function checkListPass()
 	{
@@ -178,6 +181,7 @@ class Costlist
 		{
 			throw new Exception("Whoops, het wachtwoord kon niet gecontroleerd worden");
 		}
+		mysqli_close($link);
 	}
 	public function addFavoritList($beheerderID)
 	{
@@ -195,6 +199,7 @@ class Costlist
 		{
 			throw new Exception("Yes, de lijst is toegevoegd aan jouw persoonlijke lijsten!");
 		}
+		mysqli_close($link);
 	}
 	
 }
