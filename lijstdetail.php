@@ -33,7 +33,7 @@
 		    	{
 			    	while($singleCost = $allCosts->fetch_assoc())
 			    	{
-				    	echo "<li><a href='#'>";
+				    	echo "<li><a href='uitgavebewerken.php?idcost=".$singleCost['UitgaveID']."&typecost=".$singleCost['TypeID']."'>";
 						echo "<h3>".$singleCost['TypeNaam']."</h3>";
 						echo "<p class='cost_price'><span>&euro;</span>".$singleCost['Prijs']."</p></a>";
 						echo "</li>";
