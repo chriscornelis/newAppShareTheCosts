@@ -55,6 +55,11 @@
 			}
 		//}
 	}
+	if(isset($_POST['delete_cost']))
+	{
+		header('Location: http://localhost:8888/newAppShareTheCosts/lijstdetail.php?id='.$listID.'');
+		exit();
+	}
 ?>
 <?php include 'header.php'; ?>
 
@@ -103,14 +108,14 @@
 				
 				
 				<input type="submit" name="save_cost" id="save_cost" data-theme="b" value="OPSLAAN" />
-				<input type="submit" name="delete_cost" id="delete_cost" data-theme="b" value="VERWIJDER" />
+				<input type="submit" name="delete_cost" id="delete_cost" data-theme="b" value="ANNULEER" />
 
 			</form> <!-- END form -->
 			
 			<?php include 'feedback.php'; ?>
 		</div><!--content-->
 <script>
-/*$("#km_input").hide();
+$("#km_input").hide();
 $("#prijs_input").show();
 
 $("#cost_type").change(function(){
@@ -124,6 +129,6 @@ $("#cost_type").change(function(){
 		$("#km_input").hide();
 		$("#prijs_input").show();
 	}
-});*/
+});
 </script>		
 	<?php include 'footer.php'; ?>
