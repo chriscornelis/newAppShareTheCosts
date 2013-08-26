@@ -22,9 +22,9 @@ session_start();
 				{
 					header('Location: http://localhost:8888/newAppShareTheCosts/overzichtlijsten.php');
 					$user->Save();
-					$_SESSION["UserID"] = $id;
+					/*$_SESSION["UserID"] = $id;
 					$_SESSION["UserName"] = $_POST['name_register'];
-					echo $id;
+					echo $id;*/
 					exit();
 				}
 				else

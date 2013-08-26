@@ -1,5 +1,4 @@
 <?php
-
 class User
 {
 	private $m_sUserID;
@@ -62,8 +61,9 @@ class User
 				{
 					//get the user ID from the user that was just saved
 					$id = $link->insert_id;
+					$_SESSION["UserID"] = $id;
+					$_SESSION["UserName"] = $link->real_escape_string($this->Name);
 					throw new Exception("Alright! Je hebt een account!");
-					return $id;
 				}
 				else
 				{
