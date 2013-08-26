@@ -71,10 +71,10 @@ class Costlist
 	public function saveList()
 	{
 		include("Connection.php");
-		$saveListSql = "INSERT INTO Uitgavenlijst (LijstNaam, GebruikerID, Wachtwoord) 
+		$saveListSql = "INSERT INTO Uitgavenlijst (LijstNaam, BeheerderID, Wachtwoord) 
 		VALUES ('".$link->real_escape_string($this->ListName)."',
 		'".$link->real_escape_string($this->UserID)."',
-		'".$link->real_escape_string(md5($this->ListPass))."'
+		'".$link->real_escape_string($this->ListPass)."'
 		);";
 		
 		if($link->query($saveListSql))
