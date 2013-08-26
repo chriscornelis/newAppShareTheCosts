@@ -35,7 +35,7 @@ error_reporting(E_ALL);
 		<div data-role="popup" id="delete_list" data-theme="d" data-verlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 			<p>Deze lijst verwijderen uit jouw uitgavenlijsten?</p>
 			<a href="overzichtlijsten.php" data-role="button" data-rel="back" data-theme="b" data-inline="true" data-mini="true">Ja, verwijder</a>
-    		<a href="index.html" data-role="button" data-rel="back" data-inline="true" data-mini="true">Nee</a>
+    		<a href="overzichtlijsten.php" data-role="button" data-rel="back" data-inline="true" data-mini="true">Nee</a>
 		</div>
 		<br />
 		
