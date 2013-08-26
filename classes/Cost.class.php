@@ -72,6 +72,34 @@ class Cost
 		}
 		return $lResult;
 	}
+	// function to update an existing cost
+	public function updateCost()
+	{
+		include("Connection.php");
+		$updateCostSql = "UPDATE Uitgave SET 
+		TypeID = ".$link->real_escape_string($this->TypeID).", 
+		Prijs = ".$link->real_escape_string($this->Price).", 
+		Datum = '".$link->real_escape_string($this->Date)."', 
+		Toelichting = '".$link->real_escape_string($this->Info)."',
+		StartKm = ".$link->real_escape_string($this->StartKm).",
+		EindKm = ".$link->real_escape_string($this->EndKm)."
+		WHERE UitgaveID = ".$link->real_escape_string($this->CostID).";";
+		
+		
+		if($link->query($updateCostSql))
+		{
+			//cost saved
+			throw new Exception("Ok! de bewerking is opgeslagen!");
+			//header('Location: http://localhost:8888/newAppShareTheCosts/overzichtlijsten.php');
+			//exit();
+		}
+		else
+		{
+			//cost can't be saved
+			throw new Exception("De bewerking kon niet opgeslagen worden");
+		}
+		mysqli_close($link);
+	}
 	
 	//function to save a new cost of a list
 	public function saveCost()
@@ -162,6 +190,21 @@ class Cost
 		mysqli_close($link);
 	}
 	
+	//function to get the details of one specific cost in a list
+	public function getDetailsCost()
+	{
+		include("Connection.php");
+		$costDetailsSql = "SELECT * FROM Uitgave WHERE UitgaveID = ".$link->real_escape_string($this->CostID).";";
+		if($result = $link->query($costDetailsSql))
+		{
+			return($result);
+		}
+		else
+		{
+			throw new Exception('Whoops, de details van de uitgave kunnen niet getoond worden');
+		}
+		mysqli_close($link);
+	}
 	//function to get all the cost types, to fill up the dropdown
 	public function getAllCostTypes()
 	{
@@ -174,6 +217,22 @@ class Cost
 		else
 		{
 			throw new Exception('Whoops, de types van uitgaven kunnen niet getoond worden');
+		}
+		mysqli_close($link);
+	}
+	
+	//function to search the name of one specific type of cost
+	public function getOneCostType()
+	{
+		include("Connection.php");
+		$OneTypeSql = "SELECT * FROM UitgaveType WHERE TypeID = ".$link->real_escape_string($this->TypeID).";";
+		if($result = $link->query($OneTypeSql))
+		{
+			return($result);
+		}
+		else
+		{
+			throw new Exception('Whoops, het type van de uitgave kan niet getoond worden');
 		}
 		mysqli_close($link);
 	}
